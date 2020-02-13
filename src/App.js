@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Login from './Login';
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+    constructor() {
+      super();
+
+      this.handleLogin = this.handleLogin.bind(this);
+      
+      this.state = {
+        loggedIn: false
+      }
+
+    }
+
+    handleLogin(user, pass) {
+      axios.post("http://localhost:8080/login", {
+        username: user,
+        password: pass
+      }).then(res => {
+        console.log(res);
+      });
+    }
+
+    render() {
+
+      if(!this.state.loggedIn) {
+        return(
+          <Login onLogin={this.handleLogin} />
+        );
+      }
+
+      return(
+        <div className="App">
+        
+        </div>
+      );
+    }
+
 }
 
 export default App;
