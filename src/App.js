@@ -9,6 +9,7 @@ class App extends Component {
       super();
 
       this.handleLogin = this.handleLogin.bind(this);
+      this.handleLogout = this.handleLogout.bind(this);
       
       this.state = {
         loggedIn: false
@@ -17,11 +18,19 @@ class App extends Component {
     }
 
     handleLogin(user, pass) {
+      console.log("Username: " + user + " Password: " + pass);
       axios.post("http://localhost:8080/login", {
         username: user,
         password: pass
       }).then(res => {
-        console.log(res);
+        sessionStorage.setItem('accessToken', res.headers.authorization);
+        this.setState({loggedIn: true});
+      }).catch(error => {console.log(error)});
+    }
+
+    handleLogout() {
+      this.setState({loggedIn: false}, () => {
+        sessionStorage.removeItem('accessToken');
       });
     }
 
@@ -35,7 +44,8 @@ class App extends Component {
 
       return(
         <div className="App">
-        
+          <p>Hello World!</p>
+          <button onClick={this.handleLogout}>Log out</button>
         </div>
       );
     }
