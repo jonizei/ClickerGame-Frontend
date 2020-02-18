@@ -6,20 +6,17 @@ import axios from 'axios';
 
 class App extends Component {
 
-    playerInfo = {
-      id: -1,
-      username: '',
-      points: 0
-    }
-
     constructor() {
       super();
 
       this.handleLogin = this.handleLogin.bind(this);
       this.handleLogout = this.handleLogout.bind(this);
+      this.loadPlayerDetails = this.loadPlayerDetails.bind(this);
       
       this.state = {
-        loggedIn: false
+        loggedIn: false,
+        isLoadingDetails: true,
+        playerDetails: {}
       }
 
     }
@@ -27,6 +24,7 @@ class App extends Component {
     componentDidMount() {
 
       const jwt = sessionStorage.getItem('accessToken');
+      this.loadPlayerDetails();
 
       if(jwt) {
         this.setState({loggedIn: true});
@@ -35,13 +33,12 @@ class App extends Component {
     }
 
     handleLogin(user, pass) {
-      console.log("Username: " + user + " Password: " + pass);
+
       axios.post("http://localhost:8080/login", {
         username: user,
         password: pass
       }).then(res => {
         sessionStorage.setItem('accessToken', res.headers.authorization);
-        this.playerInfo = res.data;
         this.setState({loggedIn: true});
       }).catch(error => {console.log(error)});
     }
@@ -49,6 +46,22 @@ class App extends Component {
     handleLogout() {
       this.setState({loggedIn: false}, () => {
         sessionStorage.removeItem('accessToken');
+      });
+    }
+
+    loadPlayerDetails() {
+      const jwt = sessionStorage.getItem('accessToken');
+
+      this.setState({isLoadingDetails: true}, ()=> {
+        axios({
+          method: "post",
+          url: "http://localhost:8080/api/user/details",
+          headers: {
+            Authorization: jwt
+          }
+        }).then(userRes => {
+          this.setState({playerDetails: userRes.data, isLoadingDetails: false});
+        });
       });
     }
 
@@ -60,9 +73,16 @@ class App extends Component {
         );
       }
 
-      return(
-        <Game onLogout={this.handleLogout} />
-      );
+      if(!this.state.isLoadingDetails) {
+        return(
+          <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />
+        );
+      }
+      else {
+        return(
+          <p>Loading...</p>
+        );
+      }
     }
 
 }
