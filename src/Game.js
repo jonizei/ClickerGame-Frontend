@@ -56,12 +56,22 @@ class Game extends Component {
 
     render() {
         return(
-            <div className="Game">
-                <button onClick={this.props.onLogout}>Logout</button>
-
-                <div className="game-controls">
-                    <button className="game-btn" onClick={this.handleClick}>Click</button>
-                    <p className="reward-output">{this.state.message}</p>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-2">
+                        <button className="logout-btn w-100" onClick={this.props.onLogout}>Logout</button>
+                    </div>
+                </div>
+                <div className="row justify-content-center">
+                    <div className="game-container col-xs-12 col-sm-10 col-md-5 pt-5">
+                        <button className="game-btn" onClick={this.handleClick}>Click</button>
+                    </div>
+                </div>
+                <div className="row justify-content-center">
+                    <div className="game-container col-xs-12 col-sm-10 col-md-8">
+                        <p className="game-output w-100 pt-5">Points: {this.state.playerDetails.points}</p>
+                        <p className="game-output w-100">{this.state.message}</p>
+                    </div>
                 </div>
             </div>
         );

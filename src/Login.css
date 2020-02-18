@@ -1,10 +1,23 @@
 .login-container {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-top-right-radius: 20%;
-    border-bottom-left-radius: 20%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
     border: 2px solid;
+    color: white;
 }
 
 .login-controls {
     margin: auto;
+}
+
+.login-component {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border: 2px solid;
+    color: white;
+}
+
+.login-btn:hover {
+    background-color: rgba(0, 0, 0, 0.3);
 }

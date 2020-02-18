@@ -67,27 +67,19 @@ class App extends Component {
     }
 
     render() {
-
+      
       if(!this.state.loggedIn) {
         return(
           <div className="jumbotron d-flex align-items-center min-vh-100">
-            <div className="container">
               <Login onLogin={this.handleLogin} />
-            </div>
           </div>
         );
       }
 
       if(!this.state.isLoadingDetails) {
         return(
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-4"></div>
-              <div className="col-sm-4">
-                <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />  
-              </div>
-              <div className="col-sm-4"></div>
-            </div>
+          <div className="jumbotron d-flex min-vh-100">
+            <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />
           </div>
         );
       }
@@ -96,6 +88,7 @@ class App extends Component {
           <p>Loading...</p>
         );
       }
+      
     }
 
 }

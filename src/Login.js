@@ -34,13 +34,15 @@ class Login extends Component {
 
     render() {
         return(
-            <div className="row justify-content-center">
-                <div className="login-container col-xs-12 col-sm-5 w-100 p-5">
-                    <div className="login-controls w-75">
-                        <h1>Login</h1>
-                        <p><input className="w-100" type="text" name="username" placeholder="Username" onChange={this.handleChange} /></p>
-                        <p><input className="w-100" type="password" name="password" placeholder="Password" onChange={this.handleChange} /></p>
-                        <p><button className="login-button w-100 p-2" onClick={this.handleClick}>Login</button></p>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="login-container col-xs-12 col-sm-10 col-md-5 w-100 p-5">
+                        <div className="login-controls w-75">
+                            <h1 className="pb-2">Login</h1>
+                            <p><input className="login-component w-100 p-2" type="text" name="username" placeholder="Username" onChange={this.handleChange} /></p>
+                            <p><input className="login-component w-100 p-2" type="password" name="password" placeholder="Password" onChange={this.handleChange} /></p>
+                            <p><button className="login-component login-btn w-100 p-2" onClick={this.handleClick}>Login</button></p>
+                        </div>
                     </div>
                 </div>
             </div>
