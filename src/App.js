@@ -3,6 +3,7 @@ import './App.css';
 import Login from './Login';
 import Game from './Game';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
 
@@ -24,9 +25,9 @@ class App extends Component {
     componentDidMount() {
 
       const jwt = sessionStorage.getItem('accessToken');
-      this.loadPlayerDetails();
 
       if(jwt) {
+        this.loadPlayerDetails();
         this.setState({loggedIn: true});
       }
 
@@ -69,13 +70,25 @@ class App extends Component {
 
       if(!this.state.loggedIn) {
         return(
-          <Login onLogin={this.handleLogin} />
+          <div className="jumbotron d-flex align-items-center min-vh-100">
+            <div className="container">
+              <Login onLogin={this.handleLogin} />
+            </div>
+          </div>
         );
       }
 
       if(!this.state.isLoadingDetails) {
         return(
-          <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />
+          <div className="container">
+            <div className="row">
+              <div className="col-sm-4"></div>
+              <div className="col-sm-4">
+                <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />  
+              </div>
+              <div className="col-sm-4"></div>
+            </div>
+          </div>
         );
       }
       else {

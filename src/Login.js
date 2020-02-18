@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Login.css';
 
 class Login extends Component {
 
@@ -33,10 +34,15 @@ class Login extends Component {
 
     render() {
         return(
-            <div className="Login">
-                <input type="text" name="username" placeholder="Username" onChange={this.handleChange} />
-                <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
-                <input type="submit" value="Login" onClick={this.handleClick} />
+            <div className="row justify-content-center">
+                <div className="login-container col-xs-12 col-sm-5 w-100 p-5">
+                    <div className="login-controls w-75">
+                        <h1>Login</h1>
+                        <p><input className="w-100" type="text" name="username" placeholder="Username" onChange={this.handleChange} /></p>
+                        <p><input className="w-100" type="password" name="password" placeholder="Password" onChange={this.handleChange} /></p>
+                        <p><button className="login-button w-100 p-2" onClick={this.handleClick}>Login</button></p>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './Game.css';
 
 class Game extends Component {
 
@@ -37,8 +38,10 @@ class Game extends Component {
 
     handleReward(reward) {
 
-        let currentPoints = this.state.playerDetails.points + reward - 1;
-        let msg = reward > 0 ? "You won " + reward + " points!" : "No reward";
+        let currentPoints = this.state.playerDetails.points + reward.points;
+        let msg = reward.points > 0 ? "You won " + reward.points + " points!" : "No reward";
+
+        if(reward.requiredClicks > 0) msg += " Clicks to next reward: " + reward.requiredClicks;
 
         this.setState({
             message: msg,
@@ -55,8 +58,11 @@ class Game extends Component {
         return(
             <div className="Game">
                 <button onClick={this.props.onLogout}>Logout</button>
-                <button onClick={this.handleClick}>Click</button>
-                <p>{this.state.message}</p>
+
+                <div className="game-controls">
+                    <button className="game-btn" onClick={this.handleClick}>Click</button>
+                    <p className="reward-output">{this.state.message}</p>
+                </div>
             </div>
         );
     }
