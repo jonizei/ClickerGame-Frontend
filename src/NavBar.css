@@ -1,0 +1,14 @@
+.nav-item {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border: 2px solid;
+    color: white;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+  }
+  
+  .nav-item:hover {
+    background-color: rgba(0, 0, 0, 0);
+  }

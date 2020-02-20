@@ -4,6 +4,8 @@ import Login from './Login';
 import Game from './Game';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBar from './NavBar';
+//import Register from './Register';
 
 class App extends Component {
 
@@ -40,12 +42,12 @@ class App extends Component {
         password: pass
       }).then(res => {
         sessionStorage.setItem('accessToken', res.headers.authorization);
-        this.setState({loggedIn: true});
+        this.setState({loggedIn: true, isLoadingDetails: true}, this.loadPlayerDetails);
       }).catch(error => {console.log(error)});
     }
 
     handleLogout() {
-      this.setState({loggedIn: false}, () => {
+      this.setState({loggedIn: false, playerDetails: {}}, () => {
         sessionStorage.removeItem('accessToken');
       });
     }
@@ -53,25 +55,30 @@ class App extends Component {
     loadPlayerDetails() {
       const jwt = sessionStorage.getItem('accessToken');
 
-      this.setState({isLoadingDetails: true}, ()=> {
-        axios({
-          method: "post",
-          url: "http://localhost:8080/api/user/details",
-          headers: {
-            Authorization: jwt
-          }
-        }).then(userRes => {
-          this.setState({playerDetails: userRes.data, isLoadingDetails: false});
-        });
+      axios({
+        method: "post",
+        url: "http://localhost:8080/api/user/details",
+        headers: {
+          Authorization: jwt
+        }
+      }).then(userRes => {
+        console.log(userRes.data);
+        this.setState({playerDetails: userRes.data, isLoadingDetails: false});
       });
     }
 
     render() {
       
+      
       if(!this.state.loggedIn) {
         return(
           <div className="jumbotron d-flex align-items-center min-vh-100">
-              <Login onLogin={this.handleLogin} />
+            <div className="container">
+              <div className="row justify-content-center inline-block">
+                <NavBar />
+                <Login onLogin={this.handleLogin} />
+              </div>
+            </div>
           </div>
         );
       }
@@ -88,6 +95,8 @@ class App extends Component {
           <p>Loading...</p>
         );
       }
+      
+      
       
     }
 
