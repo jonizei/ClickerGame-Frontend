@@ -5,7 +5,12 @@ import Game from './Game';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './NavBar';
-//import Register from './Register';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom'
+import Register from './Register';
 
 class App extends Component {
 
@@ -71,21 +76,38 @@ class App extends Component {
       
       
       if(!this.state.loggedIn) {
+
         return(
-          <div className="jumbotron d-flex align-items-center min-vh-100">
+          <div className="d-flex align-items-center min-vh-100">
             <div className="container">
-              <div className="row justify-content-center inline-block">
-                <NavBar />
-                <Login onLogin={this.handleLogin} />
+              <div className="row">
+  
+                <Router>
+                  <NavBar />
+  
+                  <Switch>
+                    <Route exact path="/">
+                      <Login onLogin={this.handleLogin} />
+                    </Route>
+                    <Route path="/login">
+                      <Login onLogin={this.handleLogin} />
+                    </Route>
+                    <Route path="/register">
+                      <Register />
+                    </Route>
+                  </Switch>
+                </Router>
+  
               </div>
             </div>
           </div>
         );
+
       }
 
       if(!this.state.isLoadingDetails) {
         return(
-          <div className="jumbotron d-flex min-vh-100">
+          <div className="d-flex align-items-center min-vh-100">
             <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />
           </div>
         );
@@ -94,9 +116,7 @@ class App extends Component {
         return(
           <p>Loading...</p>
         );
-      }
-      
-      
+      }    
       
     }
 
