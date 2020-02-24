@@ -67,7 +67,6 @@ class App extends Component {
           Authorization: jwt
         }
       }).then(userRes => {
-        console.log(userRes.data);
         this.setState({playerDetails: userRes.data, isLoadingDetails: false});
       });
     }

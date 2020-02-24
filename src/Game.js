@@ -23,7 +23,7 @@ class Game extends Component {
 
             axios({
                 method: "post",
-                url: "http://localhost:8080/api/click/" + this.state.playerDetails.id,
+                url: "http://localhost:8080/api/click/",
                 headers: {
                     Authorization: jwt
                 }
@@ -59,18 +59,23 @@ class Game extends Component {
             <div className="container">
                 <div className="row justify-content-center p-2">
 
-                    <div className="col-xs-12 col-sm-12 col-md-2 pb-3">
-                        <button className="logout-btn w-100" onClick={this.props.onLogout}>Logout</button>
+                    <div className="col-xs-12 col-sm-12 col-md-2 pb-3 w-100 h-100">
+                        <button className="logout-btn w-100 mh-25" onClick={this.props.onLogout}>Logout</button>
                     </div>
 
                     <div className="game-container form-container col-xs-12 col-sm-12 col-md-8 p-5 mw-100 mh-100">
-                        <div className="w-100 h-50 d-inline-block">
-                            <button className="game-btn" onClick={this.handleClick}>Click</button>
-                        </div>
+                        <div className="d-sm-flex flex-md-row flex-sm-column">
+                            <div>
+                                <button className="game-btn" onClick={this.handleClick}>Click</button>
+                            </div>
 
-                        <div className="w-100 h-50 d-inline-block pt-5 pb-5">
-                            <span className="game-output w-100">Points: {this.state.playerDetails.points}</span><br />
-                            <span className="game-output w-100 text-justify">{this.state.message}</span>
+                            <div className="flex-column pt-5 pt-sm-5 p-md-5">
+                                <p className="game-output">{this.state.playerDetails.username}</p>
+                                <p className="game-output">Points: {this.state.playerDetails.points}</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p className="game-output text-justify">{this.state.message}</p>
                         </div>
                     </div>
                 </div>

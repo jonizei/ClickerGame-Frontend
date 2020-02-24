@@ -43,7 +43,8 @@ class Register extends Component {
                     password: this.state.password
                 }
             }).then(res => {
-                alert("Server: " + res.data);
+                alert(res.data);
+                this.setState({username: '', password: '', confirmPassword: ''});
             });
         } 
         else {
@@ -57,9 +58,9 @@ class Register extends Component {
             <div className="form-container col-xs-12 col-sm-12 col-md-5 w-100 p-5">
                 <div className="form-controls w-75">
                     <h1 className="pb-2">Register</h1>
-                    <p><input className="form-component w-100 p-2" type="text" name="username" placeholder="Username" onChange={this.handleChange} /></p>
-                    <p><input className="form-component w-100 p-2" type="password" name="password" placeholder="Password" onChange={this.handleChange} /></p>
-                    <p><input className="form-component w-100 p-2" type="password" name="confirm-password" placeholder="Confirm password" onChange={this.handleChange} /></p>
+                    <p><input className="form-component w-100 p-2" type="text" value={this.state.username} name="username" placeholder="Username" onChange={this.handleChange} /></p>
+                    <p><input className="form-component w-100 p-2" type="password" value={this.state.password}  name="password" placeholder="Password" onChange={this.handleChange} /></p>
+                    <p><input className="form-component w-100 p-2" type="password" value={this.state.confirmPassword} name="confirm-password" placeholder="Confirm password" onChange={this.handleChange} /></p>
                     <p><button className="form-component form-btn w-100 p-2" onClick={this.handleClick}>Register</button></p>
                 </div>
             </div>
