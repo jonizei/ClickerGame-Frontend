@@ -11,6 +11,7 @@ class Game extends Component {
 
         this.state = {
             message: "",
+            btnText: "Click",
             playerDetails: this.props.playerDetails
         }
     }
@@ -32,7 +33,24 @@ class Game extends Component {
             }).catch(error => {console.log(error)});    
         }
         else {
-            this.setState({message: "Not enough points..."});
+
+            const jwt = sessionStorage.getItem('accessToken');
+
+            axios({
+                method: "post",
+                url: "http://localhost:8080/api/click/reset",
+                headers: {
+                    Authorization: jwt
+                }
+            }).then(res => {
+                
+                this.setState({
+                    message: "Points resetted",
+                    btnText: "Click",
+                    playerDetails : res.data
+                });
+
+            }).catch(error => {console.log(error)});    
         }
     }
 
@@ -40,13 +58,19 @@ class Game extends Component {
 
         let currentPoints = this.state.playerDetails.points + reward.points;
         let msg = reward.points > 0 ? "You won " + reward.points + " points!" : "No reward";
+        let buttonText = "Click";
 
         if(reward.requiredClicks > 0) msg += " Clicks to next reward: " + reward.requiredClicks;
 
+        if(currentPoints === 0) {
+            msg = "You have runned out of points. Click the button to reset your points";
+            buttonText = "Reset";
+        }
+
         this.setState({
             message: msg,
+            btnText: buttonText,
             playerDetails : {
-                id: this.state.playerDetails.id,
                 username: this.state.playerDetails.username,
                 points: currentPoints
             }
@@ -66,7 +90,7 @@ class Game extends Component {
                     <div className="game-container form-container col-xs-12 col-sm-12 col-md-8 p-5 mw-100 mh-100">
                         <div className="d-sm-flex flex-md-row flex-sm-column">
                             <div>
-                                <button className="game-btn" onClick={this.handleClick}>Click</button>
+                                <button className="game-btn" onClick={this.handleClick}>{this.state.btnText}</button>
                             </div>
 
                             <div className="flex-column pt-5 pt-sm-5 p-md-5">
