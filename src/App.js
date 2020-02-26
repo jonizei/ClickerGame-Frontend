@@ -6,7 +6,6 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './NavBar';
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Redirect
@@ -108,6 +107,8 @@ class App extends Component {
      * if user is logged in then it will show game page
      */
     render() {
+
+      const redirect = () => <Redirect to="/" />;
       
       if(!this.state.loggedIn) {
 
@@ -115,8 +116,7 @@ class App extends Component {
           <div className="d-flex align-items-center min-vh-100">
             <div className="container">
               <div className="row">
-  
-                <Router>
+
                   <NavBar />
   
                   <Switch>
@@ -129,9 +129,7 @@ class App extends Component {
                     <Route path="/register">
                       <Register />
                     </Route>
-                    <Route component={() => <Redirect path="/" />} />
                   </Switch>
-                </Router>
   
               </div>
             </div>
@@ -142,16 +140,13 @@ class App extends Component {
 
       if(!this.state.isLoadingDetails) {
         return(
-          <Router>
             <Switch>
               <Route exact path="/">
                 <div className="d-flex align-items-center min-vh-100">
                   <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />
                 </div>
               </Route>
-              <Route component={() => <Redirect path="/" />} />
             </Switch>
-          </Router>
         );
       }
       else {
