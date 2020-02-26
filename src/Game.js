@@ -101,7 +101,7 @@ class Game extends Component {
      */
     handleReward(reward) {
 
-        let currentPoints = this.state.playerDetails.points + reward.points;
+        let currentPoints = this.state.playerDetails.points - 1 + reward.points;
         let msg = reward.points > 0 ? "You won " + reward.points + " points!" : "No reward";
         let buttonText = "Click";
 
