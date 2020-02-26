@@ -8,7 +8,8 @@ import NavBar from './NavBar';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom'
 import Register from './Register';
 
@@ -128,6 +129,7 @@ class App extends Component {
                     <Route path="/register">
                       <Register />
                     </Route>
+                    <Route component={() => <Redirect path="/" />} />
                   </Switch>
                 </Router>
   
@@ -140,9 +142,16 @@ class App extends Component {
 
       if(!this.state.isLoadingDetails) {
         return(
-          <div className="d-flex align-items-center min-vh-100">
-            <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />
-          </div>
+          <Router>
+            <Switch>
+              <Route exact path="/">
+                <div className="d-flex align-items-center min-vh-100">
+                  <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />
+                </div>
+              </Route>
+              <Route component={() => <Redirect path="/" />} />
+            </Switch>
+          </Router>
         );
       }
       else {
