@@ -61,7 +61,7 @@ class Register extends Component {
 
             axios({
                 method: "post",
-                url: "http://localhost:8080/api/user/register",
+                url: "/api/user/register",
                 data : {
                     username: this.state.username,
                     password: this.state.password

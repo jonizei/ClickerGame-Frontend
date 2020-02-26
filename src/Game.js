@@ -52,7 +52,7 @@ class Game extends Component {
 
             axios({
                 method: "post",
-                url: "http://localhost:8080/api/click/",
+                url: "/api/click/",
                 headers: {
                     Authorization: jwt
                 }
@@ -66,7 +66,7 @@ class Game extends Component {
 
             axios({
                 method: "post",
-                url: "http://localhost:8080/api/click/reset",
+                url: "/api/click/reset",
                 headers: {
                     Authorization: jwt
                 }

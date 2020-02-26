@@ -66,7 +66,7 @@ class App extends Component {
      */
     handleLogin(user, pass) {
 
-      axios.post("http://localhost:8080/login", {
+      axios.post("/login", {
         username: user,
         password: pass
       }).then(res => {
@@ -93,7 +93,7 @@ class App extends Component {
 
       axios({
         method: "get",
-        url: "http://localhost:8080/api/user/details",
+        url: "/api/user/details",
         headers: {
           Authorization: jwt
         }
