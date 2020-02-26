@@ -129,6 +129,7 @@ class App extends Component {
                     <Route path="/register">
                       <Register />
                     </Route>
+                    <Route component={redirect} />
                   </Switch>
   
               </div>
@@ -146,6 +147,7 @@ class App extends Component {
                   <Game playerDetails={this.state.playerDetails} onLogout={this.handleLogout} />
                 </div>
               </Route>
+              <Route component={redirect} />
             </Switch>
         );
       }
