@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import './Login.css';
 
+/**
+ * This component handles the user login
+ * 
+ * @author Joni Koskinen
+ * @version 2020-02-26
+ */
 class Login extends Component {
 
+    /**
+     * Constructor of Login
+     * 
+     * @param {object} props 
+     */
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -15,6 +26,11 @@ class Login extends Component {
 
     }
 
+    /**
+     * Handles typing to input boxes
+     * 
+     * Saves the typed text to state values
+     */
     handleChange = event => {
         event.preventDefault();
 
@@ -26,12 +42,19 @@ class Login extends Component {
         }
     }
 
+    /**
+     * Calls onLogin function in the properties and
+     * passes username and password
+     */
     handleClick = event => {
         event.preventDefault();
 
         this.props.onLogin(this.state.username, this.state.password);
     }
 
+    /**
+     * Returns structure of login form
+     */
     render() {
         return(
             <div className="form-container col-xs-12 col-sm-12 col-md-5 w-100 p-5">

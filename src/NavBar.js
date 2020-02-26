@@ -2,8 +2,17 @@ import React, { Component } from 'react';
 import './NavBar.css';
 import { Link } from 'react-router-dom';
 
+/**
+ * This class is a navigation bar
+ * 
+ * @author Joni Koskinen
+ * @version 2020-02-26
+ */
 class NavBar extends Component {
 
+    /**
+     * Returns navigation bar structure
+     */
     render() {
         return(
             <div className="col-sm-12 col-md-3">

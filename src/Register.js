@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+/**
+ * This class handles user registration
+ * 
+ * @author Joni Koskinen
+ * @version 2020-02-26
+ */
 class Register extends Component {
 
+    /**
+     * Constructor of Register
+     */
     constructor() {
         super();
 
@@ -16,6 +25,11 @@ class Register extends Component {
         }
     }
 
+    /**
+     * Handles typing to input boxes
+     * 
+     * Saves the typed text to state values
+     */
     handleChange = event => {
         event.preventDefault();
 
@@ -30,6 +44,16 @@ class Register extends Component {
         }
     }
 
+    /**
+     * Checks if passwords in state values match
+     * and after that it will send a POST request to 
+     * a server with username and password as data
+     * 
+     * If request is a success then it will print
+     * message from the server and empty the state values
+     * 
+     * If passwords doesn't match it will show alert box
+     */
     handleClick = event => {
         event.preventDefault();
 
@@ -52,6 +76,9 @@ class Register extends Component {
         }
     }
 
+    /**
+     * Returns the structure of register form
+     */
     render() {
 
         return(

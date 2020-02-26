@@ -12,8 +12,17 @@ import {
 } from 'react-router-dom'
 import Register from './Register';
 
+/**
+ * This component handles the whole application
+ * 
+ * @author Joni Koskinen
+ * @version 2020-02-26
+ */
 class App extends Component {
 
+    /**
+     * Constructor of App
+     */
     constructor() {
       super();
 
@@ -29,6 +38,10 @@ class App extends Component {
 
     }
 
+    /**
+     * If jwt token exists in the session storage then
+     * load player details from a server and sets status to "logged in"
+     */
     componentDidMount() {
 
       const jwt = sessionStorage.getItem('accessToken');
@@ -40,6 +53,17 @@ class App extends Component {
 
     }
 
+    /**
+     * Sends post request to a server with username and password
+     * as data.
+     * 
+     * If request is a success then it will save jwt token to the 
+     * session storage and sets status to "logged in"
+     * Then calls loadPlayerDetails() method
+     * 
+     * @param {string} user 
+     * @param {string} pass 
+     */
     handleLogin(user, pass) {
 
       axios.post("http://localhost:8080/login", {
@@ -57,11 +81,18 @@ class App extends Component {
       });
     }
 
+    /**
+     * Sends GET request to a server with jwt token in the header 
+     * 
+     * If request is a success then it will save playerDetails that server sent to
+     * the component state variable.
+     * 
+     */
     loadPlayerDetails() {
       const jwt = sessionStorage.getItem('accessToken');
 
       axios({
-        method: "post",
+        method: "get",
         url: "http://localhost:8080/api/user/details",
         headers: {
           Authorization: jwt
@@ -71,8 +102,11 @@ class App extends Component {
       });
     }
 
+    /**
+     * If user is not logged in it will show login and register pages
+     * if user is logged in then it will show game page
+     */
     render() {
-      
       
       if(!this.state.loggedIn) {
 

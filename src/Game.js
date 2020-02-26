@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Game.css';
 
+/**
+ * This class handles the game
+ * 
+ * @author Joni Koskinen
+ * @version 2020-02-26
+ */
 class Game extends Component {
 
+    /**
+     * Constructor of Game
+     * 
+     * @param {object} props 
+     */
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
@@ -16,6 +27,23 @@ class Game extends Component {
         }
     }
 
+    /**
+     * If users has more than zero points then 
+     * it will send POST request to a server to 
+     * perform a button click with jwt token in the
+     * header.
+     * 
+     * If request is a success then it will call
+     * handleReward() method and passes data from 
+     * the server
+     * 
+     * If user doesn't have any points then it will
+     * send a POST request to a server to reset the 
+     * points
+     * 
+     * If request is a success then it will reset user
+     * points
+     */
     handleClick = event => {
         event.preventDefault();
 
@@ -54,6 +82,23 @@ class Game extends Component {
         }
     }
 
+    /**
+     * Add points from reward to user's points
+     * If reward is more than zero points it 
+     * will notify player that he/she won a reward
+     * and clicks required to a next reward
+     * 
+     * If reward is not more than zero then it will 
+     * notify user that "No reward"
+     * 
+     * If user doesn't have any points it will notify
+     * that no points left and suggest to press the 
+     * button again to reset points
+     * 
+     * After that it will update the values to the state
+     * 
+     * @param {object} reward 
+     */
     handleReward(reward) {
 
         let currentPoints = this.state.playerDetails.points + reward.points;
@@ -78,6 +123,9 @@ class Game extends Component {
 
     }
 
+    /**
+     * Returns the structure of the Game form
+     */
     render() {
         return(
             <div className="container">
